@@ -2,7 +2,7 @@
 import subprocess
 
 ssh_path = 'C:/cygwin64/bin/ssh.exe'
-raspiname = 'raspi'
+raspiname = 'raspi7'
 
 class LEDPanelDelegate(object):
     
@@ -28,11 +28,14 @@ class LEDPanelDelegate(object):
             res = subprocess.run([ssh_path, raspiname, 'echo', value, '>',
                                   '/sys/class/gpio/gpio' + current_gpio + '/value'],
                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            print(res)
             
         
         def selection_combo_box_changed(current_item):
-            res = subprocess.run([ssh_path, raspiname, 'echo', current_item, '>', '/sys/class/gpio/export', ';' ,
-                                  'echo', 'out', '>', '/sys/class/gpio/gpio' + current_item + '/direction'],
+            res = subprocess.run([ssh_path, raspiname, 'echo', current_item, '>', '/sys/class/gpio/export'],
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+            res = subprocess.run([ssh_path, raspiname, 'echo', 'out', '>', '/sys/class/gpio/gpio' + current_item + '/direction'],
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 
         column = ui.create_column_widget()
