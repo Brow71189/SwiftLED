@@ -35,7 +35,8 @@ class LEDPanelDelegate(object):
             res = subprocess.run([ssh_path, raspiname, 'echo', current_item, '>', '/sys/class/gpio/export'],
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
-            res = subprocess.run([ssh_path, raspiname, 'echo', 'out', '>', '/sys/class/gpio/gpio' + current_item + '/direction'],
+            res = subprocess.run([ssh_path, raspiname, 'echo', 'out', '>', '/sys/class/gpio/gpio' + current_item +
+                                '/direction'],
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 
         column = ui.create_column_widget()
